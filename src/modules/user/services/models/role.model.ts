@@ -1,0 +1,3 @@
+class RoleModel {}
+
+export { RoleModel };

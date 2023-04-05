@@ -23,8 +23,8 @@ import CommonModule from './modules/common/common.module';
       synchronize: false,
       logging: true,
     }),
-    AuthenticationModule,
     CommonModule,
+    AuthenticationModule,
   ],
 })
 export class AppModule {}

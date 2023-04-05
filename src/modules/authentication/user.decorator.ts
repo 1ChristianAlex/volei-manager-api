@@ -1,9 +1,9 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { UserModel } from './services/models/user.model';
+import { UserOutputDto } from '../user/controllers/DTOs/user.dto';
 
 const LoggedUser = createParamDecorator((_, ctx: ExecutionContext) => {
   const request = ctx.switchToHttp().getRequest();
-  return request.user as UserModel;
+  return request.user as UserOutputDto;
 });
 
 export default LoggedUser;
