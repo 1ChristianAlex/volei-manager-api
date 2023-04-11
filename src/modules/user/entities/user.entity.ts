@@ -1,12 +1,12 @@
+import PlayersEntity from '../../../modules/game/entities/players.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   UpdateDateColumn,
   CreateDateColumn,
-  ManyToOne,
+  OneToMany,
 } from 'typeorm';
-import RolesEntity from './roles.entity';
 
 interface IUserEntityConstructor {
   name: string;
@@ -16,7 +16,13 @@ interface IUserEntityConstructor {
 
   id?: number;
 
-  role?: RolesEntity;
+  role?: Roles;
+}
+
+enum Roles {
+  ADMIN = 'admin',
+  MANAGER = 'manager',
+  PLAYER = 'player',
 }
 
 @Entity({
@@ -52,8 +58,15 @@ class UserEntity {
   @CreateDateColumn()
   public createAt?: Date;
 
-  @ManyToOne(() => RolesEntity, (role) => role.user)
-  public role: RolesEntity;
+  @Column({
+    type: 'enum',
+    enum: Roles,
+    default: Roles.PLAYER,
+  })
+  role: Roles;
+
+  @OneToMany(() => PlayersEntity, (player) => player.user)
+  public player: PlayersEntity[];
 
   static readonly tableInfo = {
     name: 'user',
@@ -61,4 +74,5 @@ class UserEntity {
   };
 }
 
+export { Roles };
 export default UserEntity;

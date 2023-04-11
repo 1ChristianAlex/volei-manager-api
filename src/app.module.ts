@@ -3,9 +3,11 @@ import AuthenticationModule from './modules/authentication/authentication.module
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ormDatabaseContext } from './database/database';
 import UserEntity from './modules/user/entities/user.entity';
-import RolesEntity from './modules/user/entities/roles.entity';
 import { ConfigModule } from '@nestjs/config';
 import CommonModule from './modules/common/common.module';
+import MatchEntity from './modules/game/entities/matchs.entity';
+import PlayersEntity from './modules/game/entities/players.entity';
+import PaymentEntity from './modules/payment/entities/payment.entity';
 
 @Module({
   imports: [
@@ -19,7 +21,7 @@ import CommonModule from './modules/common/common.module';
       username: ormDatabaseContext.username,
       password: ormDatabaseContext.password,
       database: ormDatabaseContext.database,
-      entities: [UserEntity, RolesEntity],
+      entities: [UserEntity, MatchEntity, PlayersEntity, PaymentEntity],
       synchronize: false,
       logging: true,
     }),
