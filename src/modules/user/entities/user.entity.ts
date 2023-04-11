@@ -1,3 +1,4 @@
+import MatchEntity from 'src/modules/game/entities/matchs.entity';
 import PlayersEntity from '../../../modules/game/entities/players.entity';
 import {
   Entity,
@@ -66,7 +67,10 @@ class UserEntity {
   role: Roles;
 
   @OneToMany(() => PlayersEntity, (player) => player.user)
-  public player: PlayersEntity[];
+  public players: PlayersEntity[];
+
+  @OneToMany(() => MatchEntity, (match) => match.user)
+  public matchs: MatchEntity[];
 
   static readonly tableInfo = {
     name: 'user',

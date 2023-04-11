@@ -8,6 +8,7 @@ import CommonModule from './modules/common/common.module';
 import MatchEntity from './modules/game/entities/matchs.entity';
 import PlayersEntity from './modules/game/entities/players.entity';
 import PaymentEntity from './modules/payment/entities/payment.entity';
+import GameModule from './modules/game/game.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import PaymentEntity from './modules/payment/entities/payment.entity';
     }),
     CommonModule,
     AuthenticationModule,
+    GameModule,
   ],
 })
 export class AppModule {}

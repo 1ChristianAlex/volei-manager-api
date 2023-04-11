@@ -16,7 +16,7 @@ export class userSeed2681221663797 implements MigrationInterface {
 
     const existAdmin = await repo.exist({ where: { email: admin.email } });
 
-    if (existAdmin) {
+    if (!existAdmin) {
       await queryRunner.manager.save(UserEntity, admin);
     }
   }

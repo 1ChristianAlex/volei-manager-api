@@ -6,13 +6,25 @@ import {
   UpdateDateColumn,
   CreateDateColumn,
   OneToMany,
+  ManyToOne,
 } from 'typeorm';
 import PlayersEntity from './players.entity';
+import UserEntity from 'src/modules/user/entities/user.entity';
 
 enum MatchStatus {
-  ON_GOING = 'onGoing',
-  CANCEL = 'cancel',
-  FINISHED = 'finished',
+  ON_GOING = 1,
+  FINISHED,
+  CANCEL,
+}
+
+interface MatchEntityContructor {
+  id?: number;
+  title: string;
+  status: MatchStatus;
+  datetime: Date;
+  players?: Partial<PlayersEntity[]>;
+
+  user?: Partial<UserEntity>;
 }
 
 @Entity({
@@ -20,6 +32,10 @@ enum MatchStatus {
   name: MatchEntity.tableInfo.name,
 })
 class MatchEntity {
+  constructor(data: MatchEntityContructor) {
+    Object.assign(this, data);
+  }
+
   @PrimaryGeneratedColumn()
   public id: number;
 
@@ -42,8 +58,11 @@ class MatchEntity {
   @CreateDateColumn()
   public createAt?: Date;
 
-  @OneToMany(() => PlayersEntity, (user) => user.matchs)
-  public player: PlayersEntity[];
+  @OneToMany(() => PlayersEntity, (user) => user.match)
+  public players: PlayersEntity[];
+
+  @ManyToOne(() => UserEntity, (user) => user.matchs)
+  public user: UserEntity;
 
   static readonly tableInfo = {
     name: 'matchs',

@@ -18,7 +18,6 @@ class AuthenticationService {
   public async doLogin(email: string, password: string): Promise<UserEntity> {
     const [user] = await this.usersRepository.find({
       where: { email: email.trim() },
-      relations: { role: true },
     });
 
     if (!user || !(await this.pwHash.compareHash(user.password, password))) {

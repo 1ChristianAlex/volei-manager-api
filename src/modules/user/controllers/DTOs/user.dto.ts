@@ -1,4 +1,4 @@
-import UserEntity from '../../entities/user.entity';
+import UserEntity, { Roles } from '../../entities/user.entity';
 
 class UserOutputDto {
   constructor(data: UserOutputDto) {
@@ -13,7 +13,7 @@ class UserOutputDto {
 
   public email: string;
 
-  public roleId: number;
+  public roles: Roles;
 
   static fromEntity = (entity: UserEntity): UserOutputDto =>
     new UserOutputDto({
@@ -21,7 +21,7 @@ class UserOutputDto {
       id: entity.id,
       lastName: entity.lastName,
       name: entity.name,
-      roleId: entity.role.id,
+      roles: entity.role,
     });
 }
 

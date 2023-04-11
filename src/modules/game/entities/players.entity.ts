@@ -34,11 +34,11 @@ class PlayersEntity {
   @Column({ type: 'integer' })
   public hoursPlayed: number;
 
-  @ManyToOne(() => UserEntity, (user) => user.player)
-  user: UserEntity;
+  @ManyToOne(() => UserEntity, (user) => user.players)
+  public user: UserEntity;
 
-  @ManyToOne(() => MatchEntity, (match) => match.player)
-  public matchs: MatchEntity;
+  @ManyToOne(() => MatchEntity, (match) => match.players)
+  public match: MatchEntity;
 
   @ManyToOne(() => PaymentEntity, (payment) => payment.player)
   public payment: PaymentEntity;
