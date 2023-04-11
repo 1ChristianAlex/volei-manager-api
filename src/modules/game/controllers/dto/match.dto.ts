@@ -1,6 +1,17 @@
-import { IsDate, IsNumberString, IsString } from 'class-validator';
+import { IsDate, IsNumber, IsNumberString, IsString } from 'class-validator';
 import MatchEntity, { MatchStatus } from '../../entities/matchs.entity';
 import { PlayersInputDto, PlayersOutputDto } from './player.dto';
+
+class MatchFinishInputDto {
+  @IsNumberString()
+  public id: number;
+
+  @IsDate()
+  public finishDate: Date;
+
+  @IsNumber()
+  public valueHour: number;
+}
 
 class MatchInputDto {
   public id?: number;
@@ -46,10 +57,10 @@ class MatchOutputDto {
         ? matchEntity.players.map(PlayersOutputDto.fromEntity)
         : null,
       status: matchEntity.status,
-      title: matchEntity.status,
+      title: matchEntity.title,
       createAt: matchEntity.createAt,
       updatedDate: matchEntity.updatedDate,
     });
 }
 
-export { MatchOutputDto, MatchInputDto, MatchInputUpdateDto };
+export { MatchOutputDto, MatchInputDto, MatchInputUpdateDto, MatchFinishInputDto };

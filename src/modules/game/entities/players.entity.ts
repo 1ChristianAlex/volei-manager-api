@@ -12,16 +12,30 @@ import {
 import MatchEntity from './matchs.entity';
 import PaymentEntity from '../../payment/entities/payment.entity';
 
+interface PlayersEntityConstructor {
+  id?: number;
+  isActive: boolean;
+  hoursPlayed: number;
+  user: Partial<UserEntity>;
+  match: Partial<MatchEntity>;
+  payment: Partial<PaymentEntity>;
+}
+
 @Entity({
   schema: PlayersEntity.tableInfo.schema,
   name: PlayersEntity.tableInfo.name,
 })
 class PlayersEntity {
+  constructor(data: PlayersEntityConstructor) {
+    Object.assign(this, data);
+  }
+
   @PrimaryGeneratedColumn()
   public id: number;
 
   @Column({
     type: 'bool',
+    default: true,
   })
   public isActive: boolean;
 
@@ -31,7 +45,7 @@ class PlayersEntity {
   @CreateDateColumn()
   public createAt?: Date;
 
-  @Column({ type: 'integer' })
+  @Column({ type: 'integer', default: 0 })
   public hoursPlayed: number;
 
   @ManyToOne(() => UserEntity, (user) => user.players)
@@ -40,7 +54,7 @@ class PlayersEntity {
   @ManyToOne(() => MatchEntity, (match) => match.players)
   public match: MatchEntity;
 
-  @ManyToOne(() => PaymentEntity, (payment) => payment.player)
+  @ManyToOne(() => PaymentEntity, (payment) => payment.player, { nullable: true })
   public payment: PaymentEntity;
 
   static readonly tableInfo = {

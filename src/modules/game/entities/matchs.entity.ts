@@ -52,6 +52,12 @@ class MatchEntity {
   @Column({ type: 'timestamp' })
   public datetime: Date;
 
+  @Column({ type: 'timestamp' })
+  public finishDate: Date;
+
+  @Column({ type: 'numeric', nullable: true })
+  public valueHour: number;
+
   @UpdateDateColumn()
   public updatedDate?: Date;
 

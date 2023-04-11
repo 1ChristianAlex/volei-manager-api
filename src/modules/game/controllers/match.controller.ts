@@ -10,7 +10,12 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/modules/authentication/jwt/jwt-auth.guard';
-import { MatchInputDto, MatchInputUpdateDto, MatchOutputDto } from './dto/match.dto';
+import {
+  MatchFinishInputDto,
+  MatchInputDto,
+  MatchInputUpdateDto,
+  MatchOutputDto,
+} from './dto/match.dto';
 import MatchService from '../services/match.service';
 import { UserOutputDto } from 'src/modules/user/controllers/DTOs/user.dto';
 import LoggedUser from 'src/modules/authentication/user.decorator';
@@ -58,6 +63,20 @@ class MatchController {
     const result = await this.matchService.getById(id);
 
     return MatchOutputDto.fromEntity(result);
+  }
+
+  @Put('cancel')
+  async cancelMatch(
+    @Param('id', new ParseIntPipe()) id: number
+  ): Promise<MatchOutputDto> {
+    const result = await this.matchService.cancelMatch(id);
+
+    return MatchOutputDto.fromEntity(result);
+  }
+
+  @Put('finish')
+  async finishMatch(@Body() match: MatchFinishInputDto): Promise<void> {
+    await this.matchService.finishMatch(match);
   }
 }
 

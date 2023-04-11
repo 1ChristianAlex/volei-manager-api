@@ -1,3 +1,4 @@
+import { IsNumber } from 'class-validator';
 import PlayersEntity from '../../entities/players.entity';
 import { MatchInputDto, MatchOutputDto } from './match.dto';
 
@@ -38,4 +39,15 @@ class PlayersOutputDto {
     });
 }
 
-export { PlayersInputDto, PlayersOutputDto };
+class PlayerPlaytimeInputDto {
+  @IsNumber()
+  public matchId: number;
+
+  @IsNumber()
+  public playerId: number;
+
+  @IsNumber()
+  public playedTime: number;
+}
+
+export { PlayersInputDto, PlayersOutputDto, PlayerPlaytimeInputDto };
