@@ -1,4 +1,4 @@
-import MatchEntity from 'src/modules/game/entities/matchs.entity';
+import MatchEntity from '../../../modules/game/entities/matchs.entity';
 import PlayersEntity from '../../../modules/game/entities/players.entity';
 import {
   Entity,
@@ -23,6 +23,7 @@ interface IUserEntityConstructor {
 enum Roles {
   ADMIN = 'admin',
   MANAGER = 'manager',
+  Coath = 'player',
   PLAYER = 'player',
 }
 

@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { UserOutputDto } from 'src/modules/user/controllers/DTOs/user.dto';
 
 class LoginInputDto {
@@ -13,4 +13,20 @@ class LoginOutputDto {
   constructor(public token: string, private user: UserOutputDto) {}
 }
 
-export { LoginInputDto, LoginOutputDto };
+class RegisterInputDto {
+  @IsString()
+  @IsNotEmpty()
+  public name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  public lastName: string;
+
+  @IsEmail()
+  public email: string;
+
+  @IsNotEmpty()
+  public password: string;
+}
+
+export { LoginInputDto, LoginOutputDto, RegisterInputDto };

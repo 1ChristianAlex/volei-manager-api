@@ -9,7 +9,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import PlayersEntity from './players.entity';
-import UserEntity from 'src/modules/user/entities/user.entity';
+import UserEntity from '../../../modules/user/entities/user.entity';
 
 enum MatchStatus {
   ON_GOING = 1,

@@ -1,8 +1,6 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { LoginInputDto, LoginOutputDto } from './DTOs/login.dto';
+import { Body, Controller, Post } from '@nestjs/common';
+import { LoginInputDto, LoginOutputDto, RegisterInputDto } from './DTOs/login.dto';
 import AuthenticationService from '../services/authentication.service';
-import { JwtAuthGuard } from '../jwt/jwt-auth.guard';
-import LoggedUser from '../user.decorator';
 import { UserOutputDto } from 'src/modules/user/controllers/DTOs/user.dto';
 
 @Controller('authentication')
@@ -15,10 +13,9 @@ class AuthenticationController {
     return this.authService.authTokenFactory(UserOutputDto.fromEntity(user));
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('renew')
-  renewToken(@LoggedUser() user: UserOutputDto): Promise<LoginOutputDto> {
-    return this.authService.authTokenFactory(user);
+  @Post('register')
+  async register(@Body() userInput: RegisterInputDto): Promise<void> {
+    await this.authService.register(userInput);
   }
 }
 
